@@ -125,34 +125,6 @@
                 android:text="@string/test_devname2" />
         </RadioGroup>
 
-        <CheckBox
-            android:id="@+id/analyticsOkayCheckbox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
-            android:checked="true"
-            android:text="@string/analytics_okay"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/reportBugButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/warningNotPaired"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/reportBugButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/report_bug"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.4" />
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/changeRadioButton"
             android:layout_width="wrap_content"

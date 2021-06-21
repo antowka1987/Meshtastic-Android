@@ -108,4 +108,6 @@
     <string name="theme_dark">Dark</string>
     <string name="theme_system">System default</string>
     <string name="choose_theme_title">Choose theme</string>
+    <string name="rxFreq">RX Freq (Khz)</string>
+    <string name="txFreq">TX Freq (Khz)</string>
 </resources>

@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.geeksville.android.Logging
+import com.geeksville.mesh.ChannelProtos
 import com.geeksville.mesh.IMeshService
 import com.geeksville.mesh.MyNodeInfo
 import com.geeksville.mesh.RadioConfigProtos
@@ -132,6 +133,39 @@ class UIViewModel(private val app: Application) : AndroidViewModel(app), Logging
             if (value != null && config != null) {
                 val builder = config.toBuilder()
                 builder.preferencesBuilder.lsSecs = value
+                setRadioConfig(builder.build())
+            }
+        }
+
+    var wifiApModeEnable: Boolean?
+        get() = radioConfig.value?.preferences?.wifiApMode
+        set(value) {
+            val config = radioConfig.value
+            if (value != null && config != null) {
+                val builder = config.toBuilder()
+                builder.preferencesBuilder.wifiApMode = value
+                setRadioConfig(builder.build())
+            }
+        }
+
+    var wifiSSID: String?
+        get() = radioConfig.value?.preferences?.wifiSsid
+        set(value) {
+            val config = radioConfig.value
+            if (value != null && config != null) {
+                val builder = config.toBuilder()
+                builder.preferencesBuilder.wifiSsid = value
+                setRadioConfig(builder.build())
+            }
+        }
+
+    var wifiPassword: String?
+        get() = radioConfig.value?.preferences?.wifiPassword
+        set(value) {
+            val config = radioConfig.value
+            if (value != null && config != null) {
+                val builder = config.toBuilder()
+                builder.preferencesBuilder.wifiPassword = value
                 setRadioConfig(builder.build())
             }
         }

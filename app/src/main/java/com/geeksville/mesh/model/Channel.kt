@@ -41,8 +41,15 @@ data class Channel(val settings: ChannelProtos.ChannelSettings) {
                 ChannelProtos.ChannelSettings.ModemConfig.Bw125Cr48Sf4096 -> "LongSlow"
                 else -> "Invalid"
             }
-        } else
+        } else {
             settings.name
+        }
+
+    val rxFreq: Int
+        get() = settings.rxFreq
+
+    val txFreq: Int
+        get() = settings.txFreq
 
     val modemConfig: ChannelProtos.ChannelSettings.ModemConfig get() = settings.modemConfig
 
@@ -75,7 +82,7 @@ data class Channel(val settings: ChannelProtos.ChannelSettings) {
             val nameCode = xorHash(name.toByteArray())
             val suffix = 'A' + ((pskCode xor nameCode) % 26)
 
-            return "#${name}-${suffix}"
+            return "#${name}-${suffix}" + (if (rxFreq != 0 && txFreq != 0) "|${rxFreq}-${txFreq}" else "")
         }
 
     override fun equals(o: Any?): Boolean = (o is Channel)

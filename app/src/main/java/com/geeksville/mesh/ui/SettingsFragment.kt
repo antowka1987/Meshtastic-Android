@@ -642,33 +642,6 @@ class SettingsFragment : ScreenFragment("Settings"), Logging {
                 model.setOwner(n)
             requireActivity().hideKeyboard()
         }
-
-
-        val app = (requireContext().applicationContext as GeeksvilleApplication)
-
-        // Set analytics checkbox
-        binding.analyticsOkayCheckbox.isChecked = app.isAnalyticsAllowed
-
-        binding.analyticsOkayCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            debug("User changed analytics to $isChecked")
-            app.isAnalyticsAllowed = isChecked
-            binding.reportBugButton.isEnabled = app.isAnalyticsAllowed
-        }
-
-        // report bug button only enabled if analytics is allowed
-        binding.reportBugButton.isEnabled = app.isAnalyticsAllowed
-        binding.reportBugButton.setOnClickListener {
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.report_a_bug)
-                .setMessage(getString(R.string.report_bug_text))
-                .setNeutralButton(R.string.cancel) { _, _ ->
-                    debug("Decided not to report a bug")
-                }
-                .setPositiveButton(getString(R.string.report)) { _, _ ->
-                    reportError("Clicked Report A Bug")
-                }
-                .show()
-        }
     }
 
     private fun addDeviceButton(device: BTScanModel.DeviceListEntry, enabled: Boolean) {

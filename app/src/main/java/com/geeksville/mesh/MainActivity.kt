@@ -69,55 +69,6 @@ import java.util.*
 import kotlin.math.roundToInt
 
 
-/*
-UI design
-
-material setup instructions: https://material.io/develop/android/docs/getting-started/
-dark theme (or use system eventually) https://material.io/develop/android/theming/dark/
-
-NavDrawer is a standard draw which can be dragged in from the left or the menu icon inside the app
-title.
-
-Fragments:
-
-SettingsFragment shows "Settings"
-  username
-  shortname
-  bluetooth pairing list
-  (eventually misc device settings that are not channel related)
-
-Channel fragment "Channel"
-  qr code, copy link button
-  ch number
-  misc other settings
-  (eventually a way of choosing between past channels)
-
-ChatFragment "Messages"
-  a text box to enter new texts
-  a scrolling list of rows.  each row is a text and a sender info layout
-
-NodeListFragment "Users"
-  a node info row for every node
-
-ViewModels:
-
-  BTScanModel starts/stops bt scan and provides list of devices (manages entire scan lifecycle)
-
-  MeshModel contains: (manages entire service relationship)
-  current received texts
-  current radio macaddr
-  current node infos (updated dynamically)
-
-eventually use bottom navigation bar to switch between, Members, Chat, Channel, Settings. https://material.io/develop/android/components/bottom-navigation-view/
-  use numbers of # chat messages and # of members in the badges.
-
-(per this recommendation to not use top tabs: https://ux.stackexchange.com/questions/102439/android-ux-when-to-use-bottom-navigation-and-when-to-use-tabs )
-
-
-eventually:
-  make a custom theme: https://github.com/material-components/material-components-android/tree/master/material-theme-builder
-*/
-
 val utf8 = Charset.forName("UTF-8")
 
 
@@ -128,8 +79,7 @@ class MainActivity : AppCompatActivity(), Logging,
         const val REQUEST_ENABLE_BT = 10
         const val DID_REQUEST_PERM = 11
         const val RC_SIGN_IN = 12 // google signin completed
-        const val RC_SELECT_DEVICE =
-            13 // seems to be hardwired in CompanionDeviceManager to add 65536
+        const val RC_SELECT_DEVICE = 13 // seems to be hardwired in CompanionDeviceManager to add 65536
         const val CREATE_CSV_FILE = 14
     }
 

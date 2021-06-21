@@ -110,6 +110,12 @@ class ChannelFragment : ScreenFragment("Channel"), Logging {
                 ), false
             )
 
+            val rxFreq = channel.settings.rxFreq
+            val txFreq = channel.settings.txFreq
+            if (rxFreq != 0 && txFreq != 0) {
+                binding.rxFreq.setText(rxFreq.toString())
+                binding.txFreq.setText(txFreq.toString())
+            }
         } else {
             binding.qrView.visibility = View.INVISIBLE
             binding.channelNameEdit.visibility = View.INVISIBLE
@@ -188,6 +194,14 @@ class ChannelFragment : ScreenFragment("Channel"), Logging {
             requireActivity().hideKeyboard()
         }
 
+        binding.rxFreq.on(EditorInfo.IME_ACTION_DONE) {
+            requireActivity().hideKeyboard()
+        }
+
+        binding.txFreq.on(EditorInfo.IME_ACTION_DONE) {
+            requireActivity().hideKeyboard()
+        }
+
         binding.resetButton.setOnClickListener { _ ->
             // User just locked it, we should warn and then apply changes to radio
             MaterialAlertDialogBuilder(requireContext())
@@ -208,6 +222,8 @@ class ChannelFragment : ScreenFragment("Channel"), Logging {
 
             /// We use this to determine if the user tried to install a custom name
             var originalName = ""
+            var rxFreq = 0;
+            var txFreq = 0;
 
             val checked = binding.editableCheckbox.isChecked
             if (checked) {
@@ -216,6 +232,16 @@ class ChannelFragment : ScreenFragment("Channel"), Logging {
                     // Note: We are careful to show the emptystring here if the user was on a default channel, so the user knows they should it for any changes
                     originalName = ch.settings.name
                     binding.channelNameEdit.setText(originalName)
+                }
+
+                model.channels.value?.primaryChannel?.let { ch ->
+                    // Note: We are careful to show the emptystring here if the user was on a default channel, so the user knows they should it for any changes
+                    rxFreq = ch.settings.rxFreq
+                    txFreq = ch.settings.txFreq
+                    if (rxFreq != 0 && txFreq != 0) {
+                        binding.rxFreq.setText(rxFreq)
+                        binding.txFreq.setText(txFreq)
+                    }
                 }
             } else {
                 // User just locked it, we should warn and then apply changes to radio
@@ -230,6 +256,9 @@ class ChannelFragment : ScreenFragment("Channel"), Logging {
                         model.channels.value?.primaryChannel?.let { oldPrimary ->
                             var newSettings = oldPrimary.settings.toBuilder()
                             val newName = binding.channelNameEdit.text.toString().trim()
+
+                            val newRxFreq: Int = binding.rxFreq.text.toString().toInt()
+                            val newTxFreq = binding.txFreq.text.toString().toInt()
 
                             // Find the new modem config
                             val selectedChannelOptionString =
@@ -247,6 +276,10 @@ class ChannelFragment : ScreenFragment("Channel"), Logging {
                                 random.nextBytes(bytes)
                                 newSettings.name = newName
                                 newSettings.psk = ByteString.copyFrom(bytes)
+
+                                newSettings.rxFreq = newRxFreq
+                                newSettings.txFreq = newTxFreq
+
                             } else {
                                 debug("Switching back to default channel")
                                 newSettings = Channel.default.settings.toBuilder()

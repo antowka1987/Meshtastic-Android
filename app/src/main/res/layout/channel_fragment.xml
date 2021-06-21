@@ -34,48 +34,18 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/qr_code"
         app:layout_constraintBottom_toTopOf="@+id/channelOptions"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/channelNameView"
+        app:layout_constraintVertical_bias="0.951"
         app:srcCompat="@drawable/qrcode" />
 
-    <!--
-    geeksville: no longer used but keeping as a good example of a button group.  instead I use
-    a toggleable icon.
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/editGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:singleSelection="true"
-        app:selectionRequired="true"
-        app:layout_constraintTop_toBottomOf="@+id/channelOptions">
-
-        <Button
-            android:id="@+id/locked"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:icon="@drawable/ic_twotone_lock_24" />
-
-        <Button
-            android:id="@+id/unlocked"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:icon="@drawable/ic_twotone_lock_open_24" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
-    -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/channelOptions"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -133,5 +103,34 @@
         android:layout_marginBottom="32dp"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="16dp" />
+
+    <EditText
+        android:id="@+id/txFreq"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="@string/txFreq"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/channelOptions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.873"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/channelNameView"
+        app:layout_constraintVertical_bias="0.00
+" />
+
+    <EditText
+        android:id="@+id/rxFreq"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:ems="10"
+        android:hint="@string/rxFreq"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/channelOptions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/channelNameView"
+        app:layout_constraintVertical_bias="0.00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

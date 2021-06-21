@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.geeksville.android.Logging
 import com.geeksville.android.hideKeyboard
 import com.geeksville.mesh.R
+import com.geeksville.mesh.RadioConfigProtos
 import com.geeksville.mesh.databinding.AdvancedSettingsBinding
 import com.geeksville.mesh.model.ChannelOption
 import com.geeksville.mesh.model.UIViewModel
@@ -36,15 +37,22 @@ class AdvancedSettingsFragment : ScreenFragment("Advanced Settings"), Logging {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        model.radioConfig.observe(viewLifecycleOwner, { _ ->
+        model.radioConfig.observe(viewLifecycleOwner, { radioConfig ->
             binding.positionBroadcastPeriodEditText.setText(model.positionBroadcastSecs.toString())
             binding.lsSleepEditText.setText(model.lsSleepSecs.toString())
+            binding.wifiEnable.isChecked = model.wifiApModeEnable == true
+            binding.wifiSsid.setText(model.wifiSSID)
+            binding.wifiPassword.setText(model.wifiPassword)
         })
 
         model.isConnected.observe(viewLifecycleOwner, Observer { connectionState ->
             val connected = connectionState == MeshService.ConnectionState.CONNECTED
             binding.positionBroadcastPeriodView.isEnabled = connected
             binding.lsSleepView.isEnabled = connected
+            binding.wifiEnable.isEnabled = connected
+            binding.wifiSsid.isEnabled = connected
+            binding.wifiPassword.isEnabled = connected
+            binding.saveWifiSettings.isEnabled = connected
         })
 
         binding.positionBroadcastPeriodEditText.on(EditorInfo.IME_ACTION_DONE) {
@@ -83,6 +91,15 @@ class AdvancedSettingsFragment : ScreenFragment("Advanced Settings"), Logging {
                 Snackbar.make(requireView(), "Bad value: $str", Snackbar.LENGTH_LONG).show()
             }
             requireActivity().hideKeyboard()
+        }
+
+        binding.saveWifiSettings.setOnClickListener {
+            val wifiApMode = binding.wifiEnable.isChecked
+            val ssid = binding.wifiSsid.text
+            val password = binding.wifiPassword.text
+            model.wifiApModeEnable = wifiApMode
+            model.wifiSSID = ssid.toString()
+            model.wifiPassword = password.toString()
         }
     }
 }
